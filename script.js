@@ -10,9 +10,30 @@ function Book(title, author, pages, isRead) {
   // }
 }
 
+const container = document.querySelector("#container");
+
 Book.prototype.info = function () {
-  let read = (this.isRead === true) ? "read" : "not read yet";
-  return (this.title + " by " + this.author + ", " + this.pages + " pages, " + read);
+  // let read = (this.isRead === true) ? "read" : "not read yet";
+  // return (this.title + " by " + this.author + ", " + this.pages + " pages, " + read);
+  let card = document.createElement("div");
+  card.setAttribute("class", "card");
+  let title = document.createElement("p");
+  let author = document.createElement("p");
+  let pages = document.createElement("p");
+  let isRead = document.createElement("input")
+  isRead.setAttribute("type", "checkbox")
+
+  title.textContent = this.title;
+  author.textContent = this.author;
+  pages.textContent = this.pages;
+  isRead.value = this.isRead;
+  console.log(isRead.value);
+  this.isRead === true ? isRead.checked = true : isRead.checked = false
+  card.appendChild(title);
+  card.appendChild(author);
+  card.appendChild(pages)
+  card.appendChild(isRead);
+  container.appendChild(card);
 }
 
 const book1 = new Book ("Pride and Prejudice", "Jane Austen", "432", true);
@@ -35,15 +56,10 @@ function addBookToLibrary () {
   let newBook = new Book (title, author, pages, isRead);
 
   myLibrary.push(newBook);
+  showBooks();
 }
 
 function showBooks() {
-  let txt = "";
-  myLibrary.forEach(book => {
-    for(let key in book) {
-      console.log(`${book[key]}`);
-    }
-  });
-    document.querySelector("#test").innerText = txt;
+  myLibrary.forEach((book) => console.log(book.info()))
   }
 
