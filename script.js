@@ -1,12 +1,18 @@
+
 function Book(title, author, pages, isRead) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.isRead = isRead;
-  this.info = function () {
-    let read = (isRead === true) ? "read" : "not read yet";
-    return (title + " by " + author + ", " + pages + " pages, " + read);
-  }
+  // this.info = function () {
+  //   let read = (isRead === true) ? "read" : "not read yet";
+  //   return (title + " by " + author + ", " + pages + " pages, " + read);
+  // }
+}
+
+Book.prototype.info = function () {
+  let read = (this.isRead === true) ? "read" : "not read yet";
+  return (this.title + " by " + this.author + ", " + this.pages + " pages, " + read);
 }
 
 const book1 = new Book ("Pride and Prejudice", "Jane Austen", "432", true);
@@ -26,12 +32,18 @@ function addBookToLibrary () {
   pages = document.querySelector(".pages").value;
   isRead = document.querySelector(".isRead").checked;
 
-  let newBook = new Book (title, author, pages, isReadmy);
+  let newBook = new Book (title, author, pages, isRead);
 
   myLibrary.push(newBook);
 }
 
-function getInformation () {
-
-}
+function showBooks() {
+  let txt = "";
+  myLibrary.forEach(book => {
+    for(let key in book) {
+      console.log(`${book[key]}`);
+    }
+  });
+    document.querySelector("#test").innerText = txt;
+  }
 
