@@ -2,11 +2,15 @@ const book1 = new Book ("Pride and Prejudice", "Jane Austen", "432", true);
 const book2 = new Book ("The Eye of The World", "Robert Jordan", "782", true);
 const book3 = new Book ("The Pragmatic Programmer", "Andrew Hunt", "320", false);
 
-let myLibrary = [book1, book2, book3];
+let myLibrary = [];
+
+const input = document.querySelector(".header");
 
 const addBook = document.querySelector(".addBook");
-console.log(addBook);
 addBook.addEventListener('click', createInputCard);
+
+const library = document.querySelector(".library");
+let card = document.createElement("div");
 
 //this is the Book constructor:makes books into obejcts and added to array when used in conjunction with addBooksToLibrary()
 function Book(title, author, pages, isRead) {
@@ -18,28 +22,28 @@ function Book(title, author, pages, isRead) {
 
 //prototype to retrieve information about the books in order to display on screen
 Book.prototype.info = function () {
-  let card = document.createElement("div");
-  card.setAttribute("class", "card");
+  let displayCard = document.createElement("div");
+  displayCard.setAttribute("class", "card");
   let cardTitle = document.createElement("p");
   let cardAuthor = document.createElement("p");
   let cardPages = document.createElement("p");
   let cardIsRead = document.createElement("input")
-  isRead.setAttribute("type", "checkbox")
+  cardIsRead.setAttribute("type", "checkbox")
 
   cardTitle.textContent = "Title: " + this.title;
   cardAuthor.textContent = "Author: " + this.author;
   cardPages.textContent = "Page Count: " + this.pages;
   this.isRead === true ? cardIsRead.checked = true : cardIsRead.checked = false
-  card.appendChild(cardTitle);
-  card.appendChild(cardAuthor);
-  card.appendChild(cardPages)
-  card.appendChild(cardIsRead);
-  library.appendChild(card);
+  displayCard.appendChild(cardTitle);
+  displayCard.appendChild(cardAuthor);
+  displayCard.appendChild(cardPages)
+  displayCard.appendChild(cardIsRead);
+  library.appendChild(displayCard);
 }
 
 function createInputCard() {
-  console.log("Hi");
-  const input = document.querySelector(".header");
+  addBook.disabled = true;
+
   let card = document.createElement("div");
   card.setAttribute("class", "card");
   let header = document.createElement("h3");
@@ -64,8 +68,9 @@ function createInputCard() {
   isRead.setAttribute("type", "checkbox");
   let submitBtn = document.createElement("button");
   submitBtn.setAttribute("type", "button");
-  submitBtn.setAttribute("class", "addBook");
+  submitBtn.setAttribute("class", "submitBook");
   submitBtn.textContent = "Add Book";
+  submitBtn.addEventListener('click', addBookToLibrary);
 
   card.appendChild(header);
   card.appendChild(title);
@@ -78,10 +83,8 @@ function createInputCard() {
 }
 
 function addBookToLibrary () {
-  createCard();
   console.log("hi");
-  title.value;    
-  //  = document.querySelector(".title")
+  title = document.querySelector(".title").value
   author = document.querySelector(".author").value;
   pages = document.querySelector(".pages").value;
   isRead = document.querySelector(".isRead").checked;
@@ -90,6 +93,8 @@ function addBookToLibrary () {
 
   myLibrary.push(newBook);
   showBooks();
+  input.removeChild(input.lastChild);
+  addBook.disabled = false;
 }
 
 function showBooks() {
