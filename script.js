@@ -4,17 +4,11 @@ function Book(title, author, pages, isRead) {
   this.author = author;
   this.pages = pages;
   this.isRead = isRead;
-  // this.info = function () {
-  //   let read = (isRead === true) ? "read" : "not read yet";
-  //   return (title + " by " + author + ", " + pages + " pages, " + read);
-  // }
 }
 
-const container = document.querySelector("#container");
+const library = document.querySelector(".library");
 
 Book.prototype.info = function () {
-  // let read = (this.isRead === true) ? "read" : "not read yet";
-  // return (this.title + " by " + this.author + ", " + this.pages + " pages, " + read);
   let card = document.createElement("div");
   card.setAttribute("class", "card");
   let title = document.createElement("p");
@@ -23,17 +17,15 @@ Book.prototype.info = function () {
   let isRead = document.createElement("input")
   isRead.setAttribute("type", "checkbox")
 
-  title.textContent = this.title;
-  author.textContent = this.author;
-  pages.textContent = this.pages;
-  isRead.value = this.isRead;
-  console.log(isRead.value);
+  title.textContent = "Title: " + this.title;
+  author.textContent = "Author: " + this.author;
+  pages.textContent = "Page Count: " + this.pages;
   this.isRead === true ? isRead.checked = true : isRead.checked = false
   card.appendChild(title);
   card.appendChild(author);
   card.appendChild(pages)
   card.appendChild(isRead);
-  container.appendChild(card);
+  library.appendChild(card);
 }
 
 const book1 = new Book ("Pride and Prejudice", "Jane Austen", "432", true);
