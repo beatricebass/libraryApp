@@ -44,22 +44,22 @@ Book.prototype.info = function () {
 function createInputCard() {
   addBook.disabled = true;
 
-  let card = document.createElement("div");
+  let card = document.createElement("table");
   card.setAttribute("class", "card");
   let header = document.createElement("h3");
   header.textContent = "Add Book"
   let title = document.createElement("input");
   title.setAttribute("class", "title")
   title.setAttribute("type", "text")
-  title.setAttribute("placeholder", "Title")
+  title.setAttribute("placeholder", "Title*")
   let author = document.createElement("input");
   author.setAttribute("class", "author")
   author.setAttribute("type", "text")
-  author.setAttribute("placeholder", "Author")
+  author.setAttribute("placeholder", "Author*")
   let pages = document.createElement("input");
   pages.setAttribute("class", "pages");
   pages.setAttribute("type", "number")
-  pages.setAttribute("placeholder", "Number of Pages")
+  pages.setAttribute("placeholder", "Number of Pages*")
   let status = document.createElement("p");
   status.setAttribute("class", "status");
   status.textContent = "Have you read this book yet?"
@@ -67,7 +67,7 @@ function createInputCard() {
   isRead.setAttribute("class", "isRead");
   isRead.setAttribute("type", "checkbox");
   let submitBtn = document.createElement("button");
-  submitBtn.setAttribute("type", "button");
+  submitBtn.setAttribute("type", "submit");
   submitBtn.setAttribute("class", "submitBook");
   submitBtn.textContent = "Add Book";
   submitBtn.addEventListener('click', addBookToLibrary);
@@ -82,8 +82,25 @@ function createInputCard() {
   input.appendChild(card);
 }
 
+function formValidation () {
+  card = document.querySelector(".card");
+  title = document.querySelector(".title");
+  author = document.querySelector(".author");
+  pages = document.querySelector(".pages");
+
+  errorMsg = document.createElement("p");
+  if (title.value == "" || author.value == "" || pages.value == "") {
+    errorMsg.textContent = "Please fill out all the required fields. (*)";
+    card.insertBefore(errorMsg, title);
+  }
+}
+
 function addBookToLibrary () {
   console.log("hi");
+  formValidation();
+  if (errorMsg.textContent != "") {
+    return;
+  }
   title = document.querySelector(".title").value
   author = document.querySelector(".author").value;
   pages = document.querySelector(".pages").value;
