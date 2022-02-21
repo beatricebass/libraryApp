@@ -19,7 +19,7 @@ html, body {
   background-color: #606C38;
 }
 
-.addBook {
+button {
   background-color: #283618;
   color:#f1f1f1;
   border: 1px #111 solid;
@@ -52,7 +52,7 @@ html, body {
 
 .card > .title, .author, .pages {
   height: 3em;
-  
+
 }
 
 .footer {

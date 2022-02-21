@@ -1,7 +1,3 @@
-const book1 = new Book ("Pride and Prejudice", "Jane Austen", "432", true);
-const book2 = new Book ("The Eye of The World", "Robert Jordan", "782", true);
-const book3 = new Book ("The Pragmatic Programmer", "Andrew Hunt", "320", false);
-
 let myLibrary = [];
 
 const input = document.querySelector(".header");
@@ -27,19 +23,25 @@ Book.prototype.info = function () {
   let cardTitle = document.createElement("p");
   let cardAuthor = document.createElement("p");
   let cardPages = document.createElement("p");
-  let cardIsRead = document.createElement("input")
-  cardIsRead.setAttribute("type", "checkbox")
+  let cardStatus = document.createElement("p");
+  let cardIsRead = document.createElement("input");
+  cardIsRead.setAttribute("type", "checkbox");
 
   cardTitle.textContent = "Title: " + this.title;
   cardAuthor.textContent = "Author: " + this.author;
   cardPages.textContent = "Page Count: " + this.pages;
+  cardStatus.textContent = "Read?";
   this.isRead === true ? cardIsRead.checked = true : cardIsRead.checked = false
   displayCard.appendChild(cardTitle);
   displayCard.appendChild(cardAuthor);
-  displayCard.appendChild(cardPages)
+  displayCard.appendChild(cardPages);
+  displayCard.appendChild(cardStatus);
   displayCard.appendChild(cardIsRead);
   library.appendChild(displayCard);
 }
+
+const book3 = new Book ("The Pragmatic Programmer", "Andrew Hunt", "320", false);
+book3.info();
 
 function createInputCard() {
   addBook.disabled = true;
@@ -87,34 +89,45 @@ function formValidation () {
   title = document.querySelector(".title");
   author = document.querySelector(".author");
   pages = document.querySelector(".pages");
-
-  errorMsg = document.createElement("p");
-  if (title.value == "" || author.value == "" || pages.value == "") {
-    errorMsg.textContent = "Please fill out all the required fields. (*)";
-    card.insertBefore(errorMsg, title);
+  submitBtn = document.querySelector(".submitBook");
+  
+  if (title.value && author.value && pages.value) {
+    return true;
   }
+  else if ((card.childElementCount == 8 && (title.value == "" || author.value == "" || pages.value == ""))) {
+    return false;
+  }
+  else if (title.value == "" || author.value == "" || pages.value == "") {
+    errorMsg = document.createElement("p");
+    card.insertBefore(errorMsg, title);
+    errorMsg.textContent = "Please fill out all the required fields. (*)";
+    return false;
+  }
+  else {
+    return true;
+  }
+ 
 }
 
 function addBookToLibrary () {
-  console.log("hi");
-  formValidation();
-  if (errorMsg.textContent != "") {
+  validation = formValidation();
+  console.log(validation);
+  if (validation === false) {
     return;
   }
+
   title = document.querySelector(".title").value
   author = document.querySelector(".author").value;
   pages = document.querySelector(".pages").value;
   isRead = document.querySelector(".isRead").checked;
 
+  
   let newBook = new Book (title, author, pages, isRead);
 
   myLibrary.push(newBook);
-  showBooks();
+  newBook.info();
   input.removeChild(input.lastChild);
   addBook.disabled = false;
 }
 
-function showBooks() {
-  myLibrary.forEach((book) => console.log(book.info()))
-  }
 
