@@ -1,3 +1,7 @@
+const book3 = new Book ("The Pragmatic Programmer", "Andrew Hunt", "320", false);
+
+let idValue = 0;
+
 let myLibrary = [];
 
 const input = document.querySelector(".header");
@@ -9,11 +13,12 @@ const library = document.querySelector(".library");
 let card = document.createElement("div");
 
 //this is the Book constructor:makes books into obejcts and added to array when used in conjunction with addBooksToLibrary()
-function Book(title, author, pages, isRead) {
+function Book(title, author, pages, isRead, idNumber) {
   this.title = title;
   this.author = author;
   this.pages = pages;
   this.isRead = isRead;
+  this.idNumber = idNumber
 }
 
 //prototype to retrieve information about the books in order to display on screen
@@ -25,6 +30,14 @@ Book.prototype.info = function () {
   let cardPages = document.createElement("p");
   let cardStatus = document.createElement("p");
   let cardIsRead = document.createElement("input");
+  let delBtn = document.createElement("button");
+  delBtn.setAttribute("class", "delBtn");
+  delBtn.textContent = "Delete";
+
+  console.log(this.idNumber);
+
+  delBtn.addEventListener("click", removeBook);
+
   cardIsRead.setAttribute("type", "checkbox");
 
   cardTitle.textContent = "Title: " + this.title;
@@ -32,15 +45,19 @@ Book.prototype.info = function () {
   cardPages.textContent = "Page Count: " + this.pages;
   cardStatus.textContent = "Read?";
   this.isRead === true ? cardIsRead.checked = true : cardIsRead.checked = false
+
+
+  
   displayCard.appendChild(cardTitle);
   displayCard.appendChild(cardAuthor);
   displayCard.appendChild(cardPages);
   displayCard.appendChild(cardStatus);
   displayCard.appendChild(cardIsRead);
+  displayCard.appendChild(delBtn);
   library.appendChild(displayCard);
 }
 
-const book3 = new Book ("The Pragmatic Programmer", "Andrew Hunt", "320", false);
+
 book3.info();
 
 function createInputCard() {
@@ -111,7 +128,6 @@ function formValidation () {
 
 function addBookToLibrary () {
   validation = formValidation();
-  console.log(validation);
   if (validation === false) {
     return;
   }
@@ -121,8 +137,11 @@ function addBookToLibrary () {
   pages = document.querySelector(".pages").value;
   isRead = document.querySelector(".isRead").checked;
 
-  
-  let newBook = new Book (title, author, pages, isRead);
+  idNumber = idValue
+
+  idValue++
+
+  let newBook = new Book (title, author, pages, isRead, idNumber);
 
   myLibrary.push(newBook);
   newBook.info();
@@ -130,4 +149,17 @@ function addBookToLibrary () {
   addBook.disabled = false;
 }
 
+
+
+function removeBook(e) {
+  for (entry in myLibrary)
+
+  
+  console.log()
+  for (let i = 0; i < myLibrary.length; i++) {
+    if (myLibrary[i] == card.idNumber) {
+      myLibrary.splice(i, 1);
+    }
+    }
+}
 
