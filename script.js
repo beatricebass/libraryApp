@@ -25,6 +25,7 @@ function Book(title, author, pages, isRead, idNumber) {
 Book.prototype.info = function () {
   let displayCard = document.createElement("div");
   displayCard.setAttribute("class", "card");
+  displayCard.setAttribute("data-id", idValue);
   let cardTitle = document.createElement("p");
   let cardAuthor = document.createElement("p");
   let cardPages = document.createElement("p");
@@ -32,10 +33,8 @@ Book.prototype.info = function () {
   let cardIsRead = document.createElement("input");
   let delBtn = document.createElement("button");
   delBtn.setAttribute("class", "delBtn");
+  delBtn.setAttribute("data-id", idValue);
   delBtn.textContent = "Delete";
-
-  console.log(this.idNumber);
-
   delBtn.addEventListener("click", removeBook);
 
   cardIsRead.setAttribute("type", "checkbox");
@@ -139,27 +138,26 @@ function addBookToLibrary () {
 
   idNumber = idValue
 
-  idValue++
-
   let newBook = new Book (title, author, pages, isRead, idNumber);
 
   myLibrary.push(newBook);
   newBook.info();
   input.removeChild(input.lastChild);
   addBook.disabled = false;
+  idValue++
 }
 
 
 
 function removeBook(e) {
-  for (entry in myLibrary)
+  id = e.target.getAttribute("data-id");
+  idNumber = id;
+  let index = null;
+  index = myLibrary.findIndex(index => index.idNumber == id);
 
-  
-  console.log()
-  for (let i = 0; i < myLibrary.length; i++) {
-    if (myLibrary[i] == card.idNumber) {
-      myLibrary.splice(i, 1);
-    }
-    }
+  myLibrary.splice(index, 1);
+
+  delCard = document.querySelector(`[data-id = "${id}"]`);
+  library.removeChild(delCard);
 }
 
