@@ -33,13 +33,18 @@ button {
 
 .library {
   background-color: #FEFAE0;
-  display: flex;
+  padding: 1em;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   justify-content: center;
   align-items: center;
   gap: 10px;
+  grid-auto-rows: auto;
 }
 
 .card {
+  font-size: 1.3rem;
   background-color: #DDA15E;
   padding: 15px;
   border-radius: 2rem;
@@ -50,10 +55,6 @@ button {
   margin-top: 3em;
 }
 
-.card > .title, .author, .pages {
-  height: 3em;
-
-}
 
 .footer {
   grid-column: 1 / 3;
