@@ -1,4 +1,3 @@
-const book3 = new Book ("The Pragmatic Programmer", "Andrew Hunt", "320", false);
 
 let idValue = 0;
 
@@ -38,6 +37,8 @@ Book.prototype.info = function () {
   delBtn.addEventListener("click", removeBook);
 
   cardIsRead.setAttribute("type", "checkbox");
+  cardIsRead.setAttribute("data-id", idValue);
+  cardIsRead.addEventListener("change", changeStatus);
 
   cardTitle.textContent = "Title: " + this.title;
   cardAuthor.textContent = "Author: " + this.author;
@@ -45,8 +46,6 @@ Book.prototype.info = function () {
   cardStatus.textContent = "Read?";
   this.isRead === true ? cardIsRead.checked = true : cardIsRead.checked = false
 
-
-  
   displayCard.appendChild(cardTitle);
   displayCard.appendChild(cardAuthor);
   displayCard.appendChild(cardPages);
@@ -56,8 +55,6 @@ Book.prototype.info = function () {
   library.appendChild(displayCard);
 }
 
-
-book3.info();
 
 function createInputCard() {
   addBook.disabled = true;
@@ -122,7 +119,6 @@ function formValidation () {
   else {
     return true;
   }
- 
 }
 
 function addBookToLibrary () {
@@ -161,3 +157,13 @@ function removeBook(e) {
   library.removeChild(delCard);
 }
 
+function changeStatus (e) {
+  let id = this.getAttribute("data-id");
+  book = myLibrary.find(book => book.idNumber == id);
+  if (e.target.checked) {
+    book.isRead = true;
+  }
+  else {
+    book.isRead = false;
+  }
+}
