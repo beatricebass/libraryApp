@@ -20,6 +20,8 @@ function Book(title, author, pages, isRead, idNumber) {
   this.idNumber = idNumber
 }
 
+//change library contructot to a class
+
 //prototype to retrieve information about the books in order to display on screen
 Book.prototype.info = function () {
   let displayCard = document.createElement("div");
